@@ -1,24 +1,10 @@
-from flask import Flask, url_for, render_template
+from flask import Flask
+from routes.home import home_route
+from routes.cliente import cliente_route
 
-# inicialização
 app = Flask(__name__)
 
-# rotas
+app.register_blueprint(home_route)
+app.register_blueprint(cliente_route, url_prefix="/clientes")
 
-@app.route("/")
-def ola_mundo():
-    titulo = "Gestão de Usuários"
-    usuarios = [
-        {"usuario": "Guilherme", "membro_ativo": True},
-        {"usuario": "João", "membro_ativo": True},
-        {"usuario": "Maria", "membro_ativo": False},
-    ]
-    return render_template('index.html', titulo=titulo, usuarios=usuarios)  
-
-@app.route("/sobre")
-def pagina_sobre():
-    
-    return render_template('sobre.html')
-
-# execução
 app.run(debug=True)
